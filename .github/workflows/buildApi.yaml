@@ -25,6 +25,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./simpsons-quotes/api
+          context: "{{defaultContext}}:simpsons-quotes/api"
           push: true
-          tags: user/app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest
