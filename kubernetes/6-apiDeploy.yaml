@@ -24,12 +24,12 @@ spec:
           - name: DB_HOST
             valueFrom:
               secretKeyRef:
-                name: api-secrets
+                name: api-secret
                 key: db-host
           - name: DB_PORT
             valueFrom:
               secretKeyRef:
-                name: api-secrets
+                name: api-secret
                 key: db-port
           - name: DB_USER
             valueFrom:
