@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -10,8 +11,8 @@ spec:
   selector:
     matchLabels:
       app: mysql-app
-  strategy:
-    type: Recreate
+  # strategy:
+  #   type: Recreate
   template:
     metadata:
       labels:
@@ -29,9 +30,15 @@ spec:
         ports:
         - containerPort: 3306
         volumeMounts:
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
             - name: redbee-mysql-persistent-storage
               mountPath: /var/lib/mysql
       volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
         - name: redbee-mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
+---

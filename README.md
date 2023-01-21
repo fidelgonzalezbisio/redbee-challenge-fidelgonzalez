@@ -40,3 +40,14 @@ El proceso de Ci/CD (Continuous Integration/Continuous Delivery) con Docker es u
 
 ## Instalacion
 ***
+Una vez que tenemos nuestro repositorio clonado y una cluster de Minikube iniciado y configurado en nuestro entorno, debemos situarnos en el directorio kubernetes. 
+Dentro de dicho directorio tendremos el siguiente listado de archivos yaml:
+```
+1-namespace.yaml
+2-ingress.yaml
+3-services.yaml
+4-secrets.yaml
+5-volumes.yaml
+6-mysqlDeploy.yaml
+7-apiDeploy.yaml
+```
