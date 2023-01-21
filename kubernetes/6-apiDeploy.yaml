@@ -19,6 +19,27 @@ spec:
     spec:
       containers:
       - name: simponsquotes-api
-        image: fidelgonzalez/app:latest
+        image: fidelgonzalez/simpsons-quotes:0.1.3
+        env:
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: api-secrets
+                key: db-host
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: api-secrets
+                key: db-port
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql-username
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql-password                
         ports:
         - containerPort: 8000
