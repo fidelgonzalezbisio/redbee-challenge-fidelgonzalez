@@ -9,7 +9,7 @@
 
 ## Objetivo
 ***
-Cómo parte del proceso de seleeción para integrar el equipo de Redbee, se debe construir un cluster de kubernetes el cual asegure la alta disponibilidad de una API hecha en Python con FastApi+SQLAlchemy y su correspondiente Base de datos en MySQL.
+Como parte del proceso de seleeción para integrar el equipo de Redbee, se debe construir un cluster de kubernetes el cual asegure la alta disponibilidad de una API hecha en Python con FastApi+SQLAlchemy y su correspondiente Base de datos en MySQL.
 Se deben lograr los siguientes objetivos:
 * Buildear la imagen de la API y subirla a la registry de docker que utilice el cluster.
 * Generar los correspondientes Deployments para las aplicaciones y verificar que están visibles entre sí utilizando el objeto Service.
@@ -19,7 +19,7 @@ Se deben lograr los siguientes objetivos:
 
 ## Tecnologias
 ***
-Lista de tecnologías utilizadas en el proyecto:
+Lista de principales tecnologías utilizadas en el proyecto:
 * [Minikube](https://minikube.sigs.k8s.io/): Version: v1.28.0
 * [Python](https://hub.docker.com/_/python): Version 3.9
 * [Mysql](https://hub.docker.com/_/mysql): Version 8.0
@@ -38,7 +38,7 @@ El proceso de Ci/CD (Continuous Integration/Continuous Delivery) con Docker es u
 * Una vez autenticado, el workflow procede a la construcción de la imagen Docker. Esto implica la compilación de los archivos necesarios, la creación de los contenedores, la instalación de los paquetes y la configuración necesaria para hacer que la imagen Docker se ejecute correctamente.
 * Finalmente, el workflow hace un push de la imagen Docker hacia la Registry Dockerhub. Esto permite a los desarrolladores acceder a la imagen Docker desde cualquier parte y permitir a los usuarios descargarla y utilizarla.
 
-## Instalacion
+## Instalación
 ***
 Una vez que tenemos nuestro repositorio clonado y un cluster de Minikube iniciado y configurado en nuestro entorno, debemos situarnos en el directorio kubernetes. 
 Dentro de dicho directorio tendremos el siguiente listado de archivos yaml:
