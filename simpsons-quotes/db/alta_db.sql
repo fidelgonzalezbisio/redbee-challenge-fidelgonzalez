@@ -1,15 +1,12 @@
--- CREAMOS LA BBDD
 create database if not exists simpsons_quotes;
 
 use simpsons_quotes;
 
--- CREAMOS LA TABLA PRINCIPAL INVOICES
 create table quotes (
   id INT NOT NULL PRIMARY KEY,
   quote VARCHAR(255) NOT NULL
 );
 
--- INSERTAMOS VALORES DE PRUEBA
 insert into quotes (id, quote)
 values (1,'Yo no fui!');
 
