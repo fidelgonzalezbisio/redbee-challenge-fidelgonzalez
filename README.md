@@ -40,7 +40,7 @@ El proceso de Ci/CD (Continuous Integration/Continuous Delivery) con Docker es u
 
 ## Instalacion
 ***
-Una vez que tenemos nuestro repositorio clonado y una cluster de Minikube iniciado y configurado en nuestro entorno, debemos situarnos en el directorio kubernetes. 
+Una vez que tenemos nuestro repositorio clonado y un cluster de Minikube iniciado y configurado en nuestro entorno, debemos situarnos en el directorio kubernetes. 
 Dentro de dicho directorio tendremos el siguiente listado de archivos yaml:
 ```
 1-namespace.yaml
@@ -48,6 +48,38 @@ Dentro de dicho directorio tendremos el siguiente listado de archivos yaml:
 3-services.yaml
 4-secrets.yaml
 5-volumes.yaml
-6-mysqlDeploy.yaml
-7-apiDeploy.yaml
+6-configmap.yaml
+7-mysqlDeploy.yaml
+8-apiDeploy.yaml
+pod-test.yaml
+start-infra.sh
+```
+
+Para iniciar el cluster, basta con ejecutar el script start-infra.sh, el cual se encarga de ejecutar todos los archivos yaml y realizar un testeo sobre la url del ingress. El resultado debería ser algo asi.
+
+```
+➜  kubernetes git:(main) ✗ ./start-infra.sh
+namespace/redbee-env unchanged
+1-namespace.yaml OK
+ingress.networking.k8s.io/simpsonsquotes-ingress unchanged
+2-ingress.yaml OK
+service/api-service unchanged
+service/mysql unchanged
+3-services.yaml OK
+secret/mysql-secret unchanged
+secret/api-secret unchanged
+4-secrets.yaml OK
+persistentvolume/mysql-pv-volume unchanged
+persistentvolumeclaim/mysql-pv-claim unchanged
+5-volumes.yaml OK
+configmap/mysql-initdb-config unchanged
+6-configmap.yaml OK
+deployment.apps/mysql unchanged
+7-mysqlDeploy.yaml OK
+deployment.apps/redbee-challenge unchanged
+8-apiDeploy.yaml OK
+Wait for URLs: http://192.168.49.2:30199
+Testing http://192.168.49.2:30199
+http://192.168.49.2:30199 - OK!
+[{"id":"1","quote":"Yo no fui!"},{"id":"2","quote":"Doh!"},{"id":"3","quote":"A la grande le puse cuca"},{"id":"4","quote":"Plan dental! Lisa necesita frenos!"},{"id":"5","quote":"La comida va aqui! Claro que si!"},{"id":"6","quote":"Si es claro y amarillo seguro que es juguillo, si es turbio y picoson es sidra muchachon"},{"id":"7","quote":"Ay! ese perro tiene la cola peluda"}]% 
 ```
