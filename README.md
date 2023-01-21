@@ -1,10 +1,11 @@
 # <em> Challenge técnico proceso de selección Redbee </em>
 
 ## Tabla de contenidos
-1. [Objetivo](#objetivo)
-2. [Tecnologias](#tecnologias)
-3. [Arquitectura](#arquitectura)
-4. [CI/CD](#cicd)
+1. [Objetivo](#objetivo).
+2. [Tecnologias](#tecnologias).
+3. [Arquitectura](#arquitectura).
+4. [CI/CD](#cicd).
+5. [Instalación](#instalacion).
 
 ## Objetivo
 ***
@@ -25,14 +26,17 @@ Lista de tecnologías utilizadas en el proyecto:
 
 ## Arquitectura
 ***
-https://github.com/fidelgonzalezbisio/redbee-challenge-fidelgonzalez/blob/main/infra-diagram/kubernetes-infra.drawio.png
+A continuación se detalla el diagrama de arquitectura desplegado en kubernetes. 
 
+![Diagrama de arquitectura](https://github.com/fidelgonzalezbisio/redbee-challenge-fidelgonzalez/blob/main/infra-diagram/kubernetes-infra.drawio.png)
 
 ## CI/CD
 ***
-El proceso de Ci/CD (Continuous Integration/Continuous Delivery) con Docker es una forma increíblemente eficaz de construir, probar y desplegar aplicaciones de forma rápida y eficiente. En este caso, se crea de manera breve un Worflow de Github actions para build de imagen docker --> .github/workflows/buildApi.yaml. Este workflow de Github Actions, diseñado para realizar tareas de desarrollo de Docker, realiza los siguientes pasos:
+El proceso de Ci/CD (Continuous Integration/Continuous Delivery) con Docker es una forma increíblemente eficaz de construir, probar y desplegar aplicaciones de forma rápida y eficiente. En este caso, se crea de manera breve un Worflow de Github actions para build de imagen docker, ubicado en --> **.github/workflows/buildApi.yaml**. Este workflow de Github Actions, diseñado para realizar tareas de desarrollo de Docker, realiza los siguientes pasos:
 
 * Primero, el workflow realiza un inicio de sesión seguro en la Registry Dockerhub utilizando los secrets de Github Actions. Esto asegura que la autenticación se realice de forma segura y que los datos de la cuenta no se divulguen.
 * Una vez autenticado, el workflow procede a la construcción de la imagen Docker. Esto implica la compilación de los archivos necesarios, la creación de los contenedores, la instalación de los paquetes y la configuración necesaria para hacer que la imagen Docker se ejecute correctamente.
 * Finalmente, el workflow hace un push de la imagen Docker hacia la Registry Dockerhub. Esto permite a los desarrolladores acceder a la imagen Docker desde cualquier parte y permitir a los usuarios descargarla y utilizarla.
 
+## Instalacion
+***
