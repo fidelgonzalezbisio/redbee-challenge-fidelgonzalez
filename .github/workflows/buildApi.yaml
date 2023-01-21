@@ -27,4 +27,4 @@ jobs:
         with:
           context: "{{defaultContext}}:simpsons-quotes/api"
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/simpsons-quotes:0.1.3
