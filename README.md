@@ -25,7 +25,7 @@ Lista de tecnologías utilizadas en el proyecto:
 
 ## Arquitectura
 ***
-imagen de arqui
+https://raw.githubusercontent.com/fidelgonzalezbisio/redbee-challenge-fidelgonzalez/blob/main/infra-diagram/kubernetes-infra.drawio.png
 
 
 ## CI/CD
