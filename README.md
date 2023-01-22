@@ -6,6 +6,7 @@
 3. [Arquitectura](#arquitectura).
 4. [CI/CD](#cicd).
 5. [Instalación](#instalacion).
+6. [Validación](#validación).
 
 ## Objetivo
 ***
@@ -103,7 +104,9 @@ apiDeploy.yaml:
 ```
 Gracias a este probe, el pod solo estará disponible una vez que la configuración del objeto configmap haya sido implementada, ya que la api al no estar creada la base de datos, devolverá un error.
 
-En este particular caso, ya que fue trabajado con minikube, se debe ejecutar el siguiente comando para obtener la URL a la cual necesitamos hacer un curl.
+## Validación
+***
+En este particular caso, ya que el desafío fué implementado utilizando minikube, se debe ejecutar el siguiente comando para obtener la URL a la cual necesitamos hacer un curl.
 ```
 minikube service -n redbee-env api-service web --url
 ```
@@ -111,10 +114,16 @@ Nos devolverá algo como esto:
 ```
 http://192.168.49.2:30349
 ```
-Una vez tenemos la url que nos brinda minikube para acceder al servicio de nodeport, debemos agregarla al /etc/hosts y vincularla a la url definida en el objeto Ingress. En este caso:
+Una vez tenemos la url que nos brinda minikube para acceder al servicio de nodeport, debemos agregarla al /etc/hosts y vincularla a la url definida en el objeto Ingress. En este caso: **192.168.49.2    simpsonsquotes.info**
 ```
 ➜  kubernetes git:(main) ✗ sudo vi /etc/hosts
 
 192.168.49.2    simpsonsquotes.info
 ```
+Haciendo la correspondiente validación desde el navegador obtenemos los siguientes resultados:
 
+Curl sobre endpoint /quotes:
+![Curl sobre quotes](https://github.com/fidelgonzalezbisio/redbee-challenge-fidelgonzalez/blob/main/curl-tests/curl-quotes.jpeg)
+
+Curl sobre endpoint /docs:
+![Curl sobre docs](https://github.com/fidelgonzalezbisio/redbee-challenge-fidelgonzalez/blob/main/curl-tests/curl-docs.jpeg)
