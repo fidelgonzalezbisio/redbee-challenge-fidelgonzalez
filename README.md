@@ -58,28 +58,63 @@ start-infra.sh
 Para iniciar el cluster, basta con ejecutar el script start-infra.sh, el cual se encarga de ejecutar todos los archivos yaml y realizar un testeo sobre la url del ingress. El resultado debería ser algo asi.
 
 ```
-➜  kubernetes git:(main) ✗ ./start-infra.sh
-namespace/redbee-env unchanged
+➜  kubernetes git:(main) ✗ ./start-infra.sh 
+namespace/redbee-env created
 1-namespace.yaml OK
-ingress.networking.k8s.io/simpsonsquotes-ingress unchanged
+ingress.networking.k8s.io/simpsonsquotes-ingress created
 2-ingress.yaml OK
-service/api-service unchanged
-service/mysql unchanged
+service/api-service created
+service/mysql created
 3-services.yaml OK
-secret/mysql-secret unchanged
-secret/api-secret unchanged
+secret/mysql-secret created
+secret/api-secret created
 4-secrets.yaml OK
-persistentvolume/mysql-pv-volume unchanged
-persistentvolumeclaim/mysql-pv-claim unchanged
+persistentvolume/mysql-pv-volume created
+persistentvolumeclaim/mysql-pv-claim created
 5-volumes.yaml OK
-configmap/mysql-initdb-config unchanged
+configmap/mysql-initdb-config created
 6-configmap.yaml OK
-deployment.apps/mysql unchanged
+deployment.apps/mysql created
 7-mysqlDeploy.yaml OK
-deployment.apps/redbee-challenge unchanged
+deployment.apps/redbee-challenge created
 8-apiDeploy.yaml OK
-Wait for URLs: http://192.168.49.2:30199
-Testing http://192.168.49.2:30199
-http://192.168.49.2:30199 - OK!
-[{"id":"1","quote":"Yo no fui!"},{"id":"2","quote":"Doh!"},{"id":"3","quote":"A la grande le puse cuca"},{"id":"4","quote":"Plan dental! Lisa necesita frenos!"},{"id":"5","quote":"La comida va aqui! Claro que si!"},{"id":"6","quote":"Si es claro y amarillo seguro que es juguillo, si es turbio y picoson es sidra muchachon"},{"id":"7","quote":"Ay! ese perro tiene la cola peluda"}]% 
 ```
+
+Sobre todos los yaml desplegados cabe destacar el deploy de mysql y el deploy de la api.
+
+mysqlDeploy.yaml: 
+    Se destaca el montado de un volumen de configmap, el cual ejecutará el script de alta-db.sql.
+```
+    volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
+```
+
+apiDeploy.yaml:
+    Se destaca la creación de un liveness probe el cual hace una http request sobre el endpoint /quotes.
+```
+        livenessProbe:
+          httpGet:
+            path: /quotes
+            port: 8000
+          initialDelaySeconds: 20
+          periodSeconds: 30
+```
+Gracias a este probe, el pod solo estará disponible una vez que la configuración del objeto configmap haya sido implementada, ya que la api al no estar creada la base de datos, devolverá un error.
+
+En este particular caso, ya que fue trabajado con minikube, se debe ejecutar el siguiente comando para obtener la URL a la cual necesitamos hacer un curl.
+```
+minikube service -n redbee-env api-service web --url
+```
+Nos devolverá algo como esto:
+```
+http://192.168.49.2:30349
+```
+Una vez tenemos la url que nos brinda minikube para acceder al servicio de nodeport, debemos agregarla al /etc/hosts y vincularla a la url definida en el objeto Ingress. En este caso:
+```
+➜  kubernetes git:(main) ✗ sudo vi /etc/hosts
+
+192.168.49.2    simpsonsquotes.info
+```
+
